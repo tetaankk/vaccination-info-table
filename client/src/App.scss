@@ -1,0 +1,47 @@
+.App{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 50%;
+    max-width: 100vw;
+
+    .selections{
+    width: 100%;
+    background-color: orchid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    }
+
+    .columns{
+        display: flex;
+        flex-direction: row;
+
+        .column{
+            margin-right: 1vw;
+        }
+
+        .column1{
+            background-color: green;
+            flex: 1;
+        }
+    
+        .column2{
+            flex: 1;
+            background-color: yellow;
+            height: 100vh;
+            width: 10%;
+        }
+
+        .column3{
+            background-color: paleturquoise;
+            flex: 1;
+        }
+
+        .column4{
+            background-color: peru;
+            flex: 1;
+        }
+    }
+}
