@@ -5,4 +5,8 @@ const getAll = () => {
     return axios.get(`${baseUrl}/all`);
 }
 
-export default {getAll}
+const getExpiredGivenVaccinations = () => {
+    return axios.get(`${baseUrl}/expiredgivenvaccinations`)
+}
+
+export default {getAll, getExpiredGivenVaccinations}

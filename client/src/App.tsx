@@ -2,16 +2,16 @@ import "./App.scss";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IOrder, IVaccination } from "./Interfaces";
+import { IOrder, IVaccination, IExpiredOrder } from "./Interfaces";
 import { useEffect, useState } from "react";
 import orderServices from "./services/orderServices";
 import vaccinationServices from "./services/vaccinationServices";
 import ArrivedInjectionsPerDistrict from "./sections/ArrivedInjectionsPerDistrict";
 import UsedInjectionsPerDistrict from "./sections/UsedInjectionsPerDistrict";
-import UnUsedInjectionsPerDistrict from "./sections/UnUsedInjectionsPerDistrict";
+import UnOpenedBottlesPerDistrict from "./sections/UnOpenedBottlesPerDistrict";
+import ExpiredVaccinations from "./sections/ExpiredVaccinations";
 
 function App() {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [vaccinations, setVaccinations] = useState<IVaccination[]>([]);
   const [selectedVaccinations, setSelectedVaccinations] = useState<
@@ -22,7 +22,6 @@ function App() {
   const [date, setDate] = useState<Date>(new Date());
 
   useEffect(() => {
-    //setCurrentDate(new Date("January 15, 2021"));
     setIsLoading(true);
     orderServices.getAll().then((response) => {
       setOrders(response.data);
@@ -31,18 +30,20 @@ function App() {
       setVaccinations(response.data);
     });
     setIsLoading(false);
-  }, []);
-
-  const arrivedVaccinesByDate = (date: Date) => {
-    setSelectedOrders(
-      orders.filter((order) => {
-        return new Date(order.arrived) <= currentDate;
-      })
-    );
-  };
+  }, [selectedOrders, selectedVaccinations]);
 
   const onChangeDate = (date: Date) => {
     setDate(date);
+    setSelectedOrders(
+      orders.filter((order: IOrder) => {
+        return new Date(order.arrived) <= date;
+      })
+    );
+    setSelectedVaccinations(
+      vaccinations.filter((vaccination: IVaccination) => {
+        return new Date(vaccination.vaccinationDate) <= date;
+      })
+    );
   };
 
   return (
@@ -53,13 +54,17 @@ function App() {
       {isLoading && <p>Loading...</p>}
       <div className="columns">
         <section className="column1 column">
-          <ArrivedInjectionsPerDistrict orders={orders} />
+          <ArrivedInjectionsPerDistrict orders={selectedOrders} />
         </section>
         <section className="column2 column">
-          <UsedInjectionsPerDistrict injections={vaccinations} />
+          <UsedInjectionsPerDistrict injections={selectedVaccinations} />
         </section>
-        <section className="column3 column"></section>
-        <section className="column4"></section>
+        <section className="column3 column">
+          <UnOpenedBottlesPerDistrict />
+        </section>
+        <section className="column4">
+          <ExpiredVaccinations date={date} />
+        </section>
       </div>
     </div>
   );

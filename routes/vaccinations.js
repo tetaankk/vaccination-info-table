@@ -12,4 +12,17 @@ vaccinationsRouter.get("/all", async (request, response) => {
   }
 });
 
+vaccinationsRouter.get(
+  "/expiredgivenvaccinations",
+  async (request, response) => {
+    try {
+      let vaccinations = await database.Vaccinations.expiredGivenVaccinations();
+      response.json(vaccinations);
+    } catch (error) {
+      console.log(error);
+      response.status(500);
+    }
+  }
+);
+
 export default vaccinationsRouter;

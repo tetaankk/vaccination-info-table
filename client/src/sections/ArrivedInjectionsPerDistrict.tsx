@@ -20,17 +20,40 @@ const ArrivedInjectionsPerDistrict: FunctionComponent<ArrivedInjectionsProps> =
       {} as Record<string, number>
     );
 
+    const injectionsPerProducer = orders.reduce(
+      (acc, { vaccine, injections }) => {
+        if (!acc[vaccine]) {
+          acc[vaccine] = 0;
+        }
+        acc[vaccine] += injections;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
+
     return (
-      <ul>
-        <h2>Total arrived injections per healthcare district</h2>
-        {Object.entries(injectionsPerDistrict).map(
-          ([healthCareDistrict, injections]) => (
-            <li>
-              {healthCareDistrict} : {injections}
-            </li>
-          )
-        )}
-      </ul>
+      <div>
+        <ul>
+          <h3>Total arrived injections per healthcare district</h3>
+          {Object.entries(injectionsPerDistrict).map(
+            ([healthCareDistrict, injections]) => (
+              <li>
+                {healthCareDistrict} : {injections}
+              </li>
+            )
+          )}
+        </ul>
+        <ul>
+          <h3>Total arrived injections per producer</h3>
+          {Object.entries(injectionsPerProducer).map(
+            ([vaccine, injections]) => (
+              <li>
+                {vaccine} : {injections}
+              </li>
+            )
+          )}
+        </ul>
+      </div>
     );
   };
 

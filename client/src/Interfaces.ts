@@ -12,5 +12,14 @@ export interface IVaccination {
     id: string,
     sourceBottle: string,
     gender: string,
-    date: string,
+    vaccinationDate: string,
+}
+
+export interface IExpiredOrder {
+    id: string,
+    healthCareDistrict: string,
+    injections: number,
+    numOfVaccsGiven: number,
+    unUsedInjections: number,
+    arrived: string,
 }
