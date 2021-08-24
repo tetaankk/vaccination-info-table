@@ -25,4 +25,16 @@ vaccinationsRouter.get(
   }
 );
 
+vaccinationsRouter.get("/usedvaccinations/:date", async (request, response) => {
+  try {
+    let vaccinations = await database.Vaccinations.usedVaccinations(
+      request.params.date
+    );
+    response.json(vaccinations);
+  } catch (error) {
+    console.log(error);
+    response.status(500);
+  }
+});
+
 export default vaccinationsRouter;

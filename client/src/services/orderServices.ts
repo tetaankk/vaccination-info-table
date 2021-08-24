@@ -5,12 +5,21 @@ const getAll = () => {
     return axios.get(`${baseUrl}/all`)
 }
 
+const getAllThisDay = (date: string) => {
+    return axios.get(`${baseUrl}/all/${date}`)
+}
+
 const getUnOpenedBottles = () => {
     return axios.get(`${baseUrl}/unopenedbottles`)
 }
 
-const getExpiredVaccinations = (date: string) => {
-    return axios.get(`${baseUrl}/expiredvaccinations/${date}`)
+const getExpiringVaccinationsThisDay = (date: string) => {
+    return axios.get(`${baseUrl}/expiringvaccinationsthisday/${date}`)
 }
 
-export default {getAll, getUnOpenedBottles, getExpiredVaccinations}
+const getExpiringVaccinationsTenDays = (date: string) => {
+    return axios.get(`${baseUrl}/expiringvaccinationstendays/${date}`)
+}
+
+
+export default {getAll, getUnOpenedBottles, getExpiringVaccinationsThisDay, getExpiringVaccinationsTenDays, getAllThisDay}

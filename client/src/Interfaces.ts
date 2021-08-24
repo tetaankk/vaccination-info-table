@@ -15,6 +15,13 @@ export interface IVaccination {
     vaccinationDate: string,
 }
 
+export interface IVaccinationWithDistrict {
+    id: string,
+    date: Date,
+    sourceBottle: string,
+    healthCareDistrict: string,
+}
+
 export interface IExpiredOrder {
     id: string,
     healthCareDistrict: string,

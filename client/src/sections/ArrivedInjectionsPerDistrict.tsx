@@ -1,13 +1,24 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { IOrder } from "../Interfaces";
+import orderServices from "../services/orderServices";
 
 interface ArrivedInjectionsProps {
-  orders: IOrder[];
+  date: Date;
 }
 
 const ArrivedInjectionsPerDistrict: FunctionComponent<ArrivedInjectionsProps> =
   (props) => {
-    const { orders } = props;
+    const [orders, setOrders] = useState<IOrder[]>([]);
+
+    useEffect(() => {
+      const dateString = props.date
+        .toISOString()
+        .slice(0, 10)
+        .replace(/-/g, "");
+      orderServices.getAllThisDay(dateString).then((response) => {
+        setOrders(response.data);
+      });
+    }, [props.date]);
 
     const injectionsPerDistrict = orders.reduce(
       (acc, { healthCareDistrict, injections }) => {
@@ -33,26 +44,32 @@ const ArrivedInjectionsPerDistrict: FunctionComponent<ArrivedInjectionsProps> =
 
     return (
       <div>
-        <ul>
-          <h3>Total arrived injections per healthcare district</h3>
-          {Object.entries(injectionsPerDistrict).map(
-            ([healthCareDistrict, injections]) => (
-              <li>
-                {healthCareDistrict} : {injections}
-              </li>
-            )
-          )}
-        </ul>
-        <ul>
-          <h3>Total arrived injections per producer</h3>
-          {Object.entries(injectionsPerProducer).map(
-            ([vaccine, injections]) => (
-              <li>
-                {vaccine} : {injections}
-              </li>
-            )
-          )}
-        </ul>
+        <h3>Vaccinations arrived the chosen day per district</h3>
+        {orders.length > 0 ? (
+          <div>
+            <ul>
+              {Object.entries(injectionsPerDistrict).map(
+                ([healthCareDistrict, injections], idx) => (
+                  <li key={idx}>
+                    {healthCareDistrict} : {injections}
+                  </li>
+                )
+              )}
+            </ul>
+            <h3>Per producer</h3>
+            <ul>
+              {Object.entries(injectionsPerProducer).map(
+                ([vaccine, injections]) => (
+                  <li>
+                    {vaccine} : {injections}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        ) : (
+          "No vaccinations arrived the chosen day"
+        )}
       </div>
     );
   };

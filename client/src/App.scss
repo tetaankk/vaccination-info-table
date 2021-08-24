@@ -1,47 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+
+body{
+    background-color: lightskyblue;
+}
+
 .App{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     width: 50%;
     max-width: 100vw;
+    font-family: 'Roboto', sans-serif;
 
     .selections{
     width: 100%;
+    padding: 1vw;
     background-color: orchid;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 50px;
+    background-color: seagreen;
+
+        .datepicker{
+        background-color: whitesmoke;
+        outline: none;
+        border: none;
+        padding: 0.5vw;
+        }
     }
 
     .columns{
         display: flex;
         flex-direction: row;
-
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin: 0;
+        
         .column{
-            margin-right: 1vw;
-        }
+            margin: 1vw;
+            padding: 1vw;
+            min-height: 10vh;
+            height: fit-content;
+            border: 1px solid gray;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            align-content: flex-start;
+            width: 25%;
 
-        .column1{
-            background-color: green;
-            flex: 1;
-        }
-    
-        .column2{
-            flex: 1;
-            background-color: yellow;
-            height: 100vh;
-            width: 10%;
-        }
+            ul{
+                list-style: none;
+                padding: 0;
+                margin: 0;
 
-        .column3{
-            background-color: paleturquoise;
-            flex: 1;
-        }
-
-        .column4{
-            background-color: peru;
-            flex: 1;
+                h4{
+                    margin: 0;
+                    padding: 0; 
+                }
+            }
         }
     }
 }

@@ -1,15 +1,14 @@
 import "./App.scss";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IOrder, IVaccination, IExpiredOrder } from "./Interfaces";
+import { IOrder, IVaccination } from "./Interfaces";
 import { useEffect, useState } from "react";
 import orderServices from "./services/orderServices";
 import vaccinationServices from "./services/vaccinationServices";
 import ArrivedInjectionsPerDistrict from "./sections/ArrivedInjectionsPerDistrict";
 import UsedInjectionsPerDistrict from "./sections/UsedInjectionsPerDistrict";
-import UnOpenedBottlesPerDistrict from "./sections/UnOpenedBottlesPerDistrict";
-import ExpiredVaccinations from "./sections/ExpiredVaccinations";
+import ExpiringVaccinationsThisDay from "./sections/ExpiringVaccinationsThisDay";
+import ExpiringVaccinationsTenDays from "./sections/ExpiringVaccinationsTenDays";
 
 function App() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -21,7 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setIsLoading(true);
     orderServices.getAll().then((response) => {
       setOrders(response.data);
@@ -30,11 +29,11 @@ function App() {
       setVaccinations(response.data);
     });
     setIsLoading(false);
-  }, [selectedOrders, selectedVaccinations]);
+  }, [selectedOrders, selectedVaccinations]); */
 
   const onChangeDate = (date: Date) => {
     setDate(date);
-    setSelectedOrders(
+    /*     setSelectedOrders(
       orders.filter((order: IOrder) => {
         return new Date(order.arrived) <= date;
       })
@@ -43,27 +42,34 @@ function App() {
       vaccinations.filter((vaccination: IVaccination) => {
         return new Date(vaccination.vaccinationDate) <= date;
       })
-    );
+    ); */
   };
 
   return (
     <div className="App">
       <div className="selections">
-        <DatePicker selected={date} onChange={onChangeDate} />
+        <h4>Choose a date</h4>
+        <DatePicker
+          dateFormat="dd/MM/yyyy"
+          selected={date}
+          onChange={onChangeDate}
+          className="datepicker"
+        />
       </div>
       {isLoading && <p>Loading...</p>}
       <div className="columns">
         <section className="column1 column">
-          <ArrivedInjectionsPerDistrict orders={selectedOrders} />
+          <ArrivedInjectionsPerDistrict date={date} />
         </section>
-        <section className="column2 column">
-          <UsedInjectionsPerDistrict injections={selectedVaccinations} />
-        </section>
+        <section className="column2 column"></section>
         <section className="column3 column">
-          <UnOpenedBottlesPerDistrict />
+          <UsedInjectionsPerDistrict date={date} />
         </section>
-        <section className="column4">
-          <ExpiredVaccinations date={date} />
+        <section className="column4 column">
+          <ExpiringVaccinationsThisDay date={date} />
+        </section>
+        <section className="column1 column">
+          <ExpiringVaccinationsTenDays date={date} />
         </section>
       </div>
     </div>
