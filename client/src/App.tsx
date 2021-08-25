@@ -9,6 +9,8 @@ import ArrivedInjectionsPerDistrict from "./sections/ArrivedInjectionsPerDistric
 import UsedInjectionsPerDistrict from "./sections/UsedInjectionsPerDistrict";
 import ExpiringVaccinationsThisDay from "./sections/ExpiringVaccinationsThisDay";
 import ExpiringVaccinationsTenDays from "./sections/ExpiringVaccinationsTenDays";
+import TotalUsedInjectionsPerDistrict from "./sections/TotalUsedInjectionsPerDistrict";
+import AverageDailyInjectionsPerDistrict from "./sections/AverageDailyInjectionsPerDistrict";
 
 function App() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -61,7 +63,6 @@ function App() {
         <section className="column1 column">
           <ArrivedInjectionsPerDistrict date={date} />
         </section>
-        <section className="column2 column"></section>
         <section className="column3 column">
           <UsedInjectionsPerDistrict date={date} />
         </section>
@@ -70,6 +71,12 @@ function App() {
         </section>
         <section className="column1 column">
           <ExpiringVaccinationsTenDays date={date} />
+        </section>
+        <section className="column1 column">
+          <TotalUsedInjectionsPerDistrict />
+        </section>
+        <section className="column1 column">
+          <AverageDailyInjectionsPerDistrict />
         </section>
       </div>
     </div>

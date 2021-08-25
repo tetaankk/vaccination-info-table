@@ -18,23 +18,6 @@ export const allThisDay = async (date) => {
   });
 };
 
-export const unOpenedBottles = async () => {
-  return new Promise((resolve, reject) => {
-    Connection.query(
-      `SELECT * 
-      FROM vaccinations.order 
-      WHERE id NOT IN 
-        (SELECT sourceBottle FROM vaccinations.givenvaccinations)`,
-      (error, results) => {
-        if (error) {
-          return reject(error);
-        }
-        resolve(results);
-      }
-    );
-  });
-};
-
 export const expiringVaccinationsThisDay = async (date) => {
   return new Promise((resolve, reject) => {
     Connection.query(
@@ -83,7 +66,6 @@ export const expiringVaccinationsTenDays = async (date) => {
 
 export default {
   allThisDay,
-  unOpenedBottles,
   expiringVaccinationsThisDay,
   expiringVaccinationsTenDays,
 };

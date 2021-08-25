@@ -22,6 +22,11 @@ export interface IVaccinationWithDistrict {
     healthCareDistrict: string,
 }
 
+export interface ITotalVaccinationsPerDistrict {
+    healthCareDistrict: string,
+    injections: number,
+}
+
 export interface IExpiredOrder {
     id: string,
     healthCareDistrict: string,
