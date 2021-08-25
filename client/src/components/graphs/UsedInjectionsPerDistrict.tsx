@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { IVaccinationWithDistrict } from "../Interfaces";
-import vaccinationServices from "../services/vaccinationServices";
+import { IVaccinationWithDistrict } from "../../Interfaces";
+import vaccinationServices from "../../services/vaccinationServices";
 
 interface UsedInjectionsPerDistrictProps {
   date: Date;

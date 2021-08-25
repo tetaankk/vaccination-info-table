@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { ITotalVaccinationsPerDistrict } from "../Interfaces";
-import vaccinationServices from "../services/vaccinationServices";
+import { ITotalVaccinationsPerDistrict } from "../../Interfaces";
+import vaccinationServices from "../../services/vaccinationServices";
 import { Bar } from "react-chartjs-2";
 
 const TotalUsedInjectionsPerDistrict: FunctionComponent = () => {
@@ -27,20 +27,7 @@ const TotalUsedInjectionsPerDistrict: FunctionComponent = () => {
 
   return (
     <div>
-      <ul>
-        <h3>Total vaccinations used by district</h3>
-        {vaccinations.length > 0 ? (
-          Object.entries(totalPerDistrict).map(
-            ([healthCareDistrict, unUsedInjections], index) => (
-              <li key={index}>
-                {healthCareDistrict} : {unUsedInjections}
-              </li>
-            )
-          )
-        ) : (
-          <li>asd</li>
-        )}
-      </ul>
+      <h4>Total vaccines used</h4>
       <Bar
         data={{
           labels: vaccinations.map((vacc) => vacc.healthCareDistrict),
@@ -55,6 +42,7 @@ const TotalUsedInjectionsPerDistrict: FunctionComponent = () => {
         height={200}
         width={200}
         options={{ maintainAspectRatio: true }}
+        redraw={false}
       />
     </div>
   );

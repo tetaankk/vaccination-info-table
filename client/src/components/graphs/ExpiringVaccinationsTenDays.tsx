@@ -1,12 +1,11 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { IExpiredOrder } from "../Interfaces";
-import orderServices from "../services/orderServices";
+import { IExpiredOrder } from "../../Interfaces";
+import orderServices from "../../services/orderServices";
 
-interface ExpiringVaccinationsThisDayProps {
+interface ExpiringVaccinationsTenDaysProps {
   date: Date;
 }
-
-const ExpiringVaccinationsThisDay: FunctionComponent<ExpiringVaccinationsThisDayProps> =
+const ExpiringVaccinationsTenDays: FunctionComponent<ExpiringVaccinationsTenDaysProps> =
   (props) => {
     const [expiredBottles, setExpiredBottles] = useState<IExpiredOrder[]>([]);
 
@@ -17,7 +16,7 @@ const ExpiringVaccinationsThisDay: FunctionComponent<ExpiringVaccinationsThisDay
         .replace(/-/g, "");
 
       orderServices
-        .getExpiringVaccinationsThisDay(dateString)
+        .getExpiringVaccinationsTenDays(dateString)
         .then((response) => {
           setExpiredBottles(response.data);
         });
@@ -36,7 +35,10 @@ const ExpiringVaccinationsThisDay: FunctionComponent<ExpiringVaccinationsThisDay
 
     return (
       <ul>
-        <h3>Vaccinations expiring the chosen day by district</h3>
+        <h3>
+          Vaccinations expired in the next 10 days from the chosen day by
+          district
+        </h3>
         {expiredBottles.length > 0 ? (
           Object.entries(expiredInjectionsPerDistrict).map(
             ([healthCareDistrict, unUsedInjections], index) => (
@@ -46,10 +48,12 @@ const ExpiringVaccinationsThisDay: FunctionComponent<ExpiringVaccinationsThisDay
             )
           )
         ) : (
-          <li>No vaccinations expired the chosen day</li>
+          <li>
+            No vaccinations expired in the next 10 days from the chosen day
+          </li>
         )}
       </ul>
     );
   };
 
-export default ExpiringVaccinationsThisDay;
+export default ExpiringVaccinationsTenDays;

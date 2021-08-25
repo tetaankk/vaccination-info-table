@@ -5,12 +5,12 @@ import { IOrder, IVaccination } from "./Interfaces";
 import { useEffect, useState } from "react";
 import orderServices from "./services/orderServices";
 import vaccinationServices from "./services/vaccinationServices";
-import ArrivedInjectionsPerDistrict from "./sections/ArrivedInjectionsPerDistrict";
-import UsedInjectionsPerDistrict from "./sections/UsedInjectionsPerDistrict";
-import ExpiringVaccinationsThisDay from "./sections/ExpiringVaccinationsThisDay";
-import ExpiringVaccinationsTenDays from "./sections/ExpiringVaccinationsTenDays";
-import TotalUsedInjectionsPerDistrict from "./sections/TotalUsedInjectionsPerDistrict";
-import AverageDailyInjectionsPerDistrict from "./sections/AverageDailyInjectionsPerDistrict";
+import ArrivedInjectionsPerDistrict from "./components/graphs/ArrivedInjectionsPerDistrict";
+import UsedInjectionsPerDistrict from "./components/graphs/UsedInjectionsPerDistrict";
+import ExpiringVaccinationsThisDay from "./components/graphs/ExpiringVaccinationsThisDay";
+import ExpiringVaccinationsTenDays from "./components/graphs/ExpiringVaccinationsTenDays";
+import TotalUsedInjectionsPerDistrict from "./components/top_graphs/TotalUsedInjectionsPerDistrict";
+import AverageDailyInjectionsPerDistrict from "./components/top_graphs/AverageDailyInjectionsPerDistrict";
 
 function App() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -49,6 +49,14 @@ function App() {
 
   return (
     <div className="App">
+      <div className="columns">
+        <section className="column">
+          <AverageDailyInjectionsPerDistrict />
+        </section>
+        <section className="column">
+          <TotalUsedInjectionsPerDistrict />
+        </section>
+      </div>
       <div className="selections">
         <h4>Choose a date</h4>
         <DatePicker
@@ -60,23 +68,17 @@ function App() {
       </div>
       {isLoading && <p>Loading...</p>}
       <div className="columns">
-        <section className="column1 column">
+        <section className="column">
           <ArrivedInjectionsPerDistrict date={date} />
         </section>
-        <section className="column3 column">
+        <section className="column">
           <UsedInjectionsPerDistrict date={date} />
         </section>
-        <section className="column4 column">
+        <section className="column">
           <ExpiringVaccinationsThisDay date={date} />
         </section>
-        <section className="column1 column">
+        <section className="column">
           <ExpiringVaccinationsTenDays date={date} />
-        </section>
-        <section className="column1 column">
-          <TotalUsedInjectionsPerDistrict />
-        </section>
-        <section className="column1 column">
-          <AverageDailyInjectionsPerDistrict />
         </section>
       </div>
     </div>

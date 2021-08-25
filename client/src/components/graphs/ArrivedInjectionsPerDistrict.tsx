@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { IOrder } from "../Interfaces";
-import orderServices from "../services/orderServices";
+import { IOrder } from "../../Interfaces";
+import orderServices from "../../services/orderServices";
 
 interface ArrivedInjectionsProps {
   date: Date;

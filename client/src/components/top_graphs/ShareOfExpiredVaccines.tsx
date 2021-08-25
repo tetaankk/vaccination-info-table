@@ -1,9 +1,9 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { ITotalVaccinationsPerDistrict } from "../Interfaces";
-import vaccinationServices from "../services/vaccinationServices";
+import { ITotalVaccinationsPerDistrict } from "../../Interfaces";
+import vaccinationServices from "../../services/vaccinationServices";
 import { Bar } from "react-chartjs-2";
 
-const AverageDailyInjectionsPerDistrict: FunctionComponent = () => {
+const ShareOfExpiredVaccines: FunctionComponent = () => {
   const [vaccinations, setVaccinations] = useState<
     ITotalVaccinationsPerDistrict[]
   >([]);
@@ -49,4 +49,4 @@ const AverageDailyInjectionsPerDistrict: FunctionComponent = () => {
   );
 };
 
-export default AverageDailyInjectionsPerDistrict;
+export default ShareOfExpiredVaccines;

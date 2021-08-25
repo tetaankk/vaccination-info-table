@@ -64,6 +64,29 @@ export const expiringVaccinationsTenDays = async (date) => {
   });
 };
 
+export const allExpiredVaccinesPerDistrict = async () => {
+  return new Promise((resolve, reject) => {
+    Connection.query(
+      `
+    SELECT o.healthCareDistrict, o.id, o.injections, o.arrived, COUNT(v.id) AS numOfVaccsGiven, o.injections - COUNT(v.id) AS unUsedInjections
+    FROM vaccinations.order o
+    LEFT JOIN  vaccinations.givenvaccinations v ON o.id = v.sourceBottle
+    WHERE DATEDIFF(?, o.arrived) BETWEEN 20 and 29
+    GROUP BY o.healthCareDistrict, o.id, o.injections, o.arrived
+    HAVING NumOfVaccsGiven < o.injections
+    ORDER BY o.healthCareDistrict
+    `,
+      date,
+      (error, results) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(results);
+      }
+    );
+  });
+};
+
 export default {
   allThisDay,
   expiringVaccinationsThisDay,
