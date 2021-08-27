@@ -35,3 +35,9 @@ export interface IExpiredOrder {
     unUsedInjections: number,
     arrived: string,
 }
+
+export interface IInfotableRow {
+    healthCareDistrict: string,
+    arrivedInjections: number,
+    usedInjections: number
+}

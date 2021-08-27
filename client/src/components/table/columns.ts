@@ -1,22 +1,22 @@
 export const COLUMNS = [
     {
         Header: "District",
-        accessor: "healthCareDistrict"
+        accessor: "healthCareDistrict",
     },
     {
         Header: "Arrived injections",
-        accessor: "injections",
+        accessor: "arrivedInjections",
     },
     {
         Header: "Used injections",
         accessor: "usedInjections",
     },
     {
-        Header: "Vaccines in storage",
-        accessor: "vaccinesInStorage",
+        Header: "Unused vaccines expiring this day",
+        accessor: "expiringInjections",
     },
     {
-        Header: "Expired injections",
-        accessor: "expiredInjections",
+        Header: "Unused vaccines expiring in 10 days",
+        accessor: "expiringVaccinesTenDays"
     }
 ]

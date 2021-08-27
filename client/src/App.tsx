@@ -11,6 +11,7 @@ import ExpiringVaccinationsThisDay from "./components/graphs/ExpiringVaccination
 import ExpiringVaccinationsTenDays from "./components/graphs/ExpiringVaccinationsTenDays";
 import TotalUsedInjectionsPerDistrict from "./components/top_graphs/TotalUsedInjectionsPerDistrict";
 import AverageDailyInjectionsPerDistrict from "./components/top_graphs/AverageDailyInjectionsPerDistrict";
+import Table from "./components/table/Table";
 
 function App() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -68,6 +69,7 @@ function App() {
       </div>
       {isLoading && <p>Loading...</p>}
       <div className="columns">
+        <Table date={date} />
         <section className="column">
           <ArrivedInjectionsPerDistrict date={date} />
         </section>

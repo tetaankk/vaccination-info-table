@@ -13,4 +13,15 @@ const getAverageUsedVaccinationsPerDistrict = () => {
     return axios.get(`${baseUrl}/averageUsedVaccinationsPerDistrict`)
 }
 
-export default {getTotalPerDistrict, getUsedVaccinations, getAverageUsedVaccinationsPerDistrict}
+const getInfoTable = (date: string) => {
+    return axios.get(`${baseUrl}/infotable/${date}`)
+}
+
+
+
+export default {
+    getTotalPerDistrict, 
+    getUsedVaccinations, 
+    getAverageUsedVaccinationsPerDistrict, 
+    getInfoTable
+}
