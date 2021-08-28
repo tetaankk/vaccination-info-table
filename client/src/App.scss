@@ -15,6 +15,7 @@ body{
     .selections{
     width: 100%;
     padding: 1vw;
+    margin: 0 0 1vh 0;
     background-color: orchid;
     border-radius: 10px;
     display: flex;
@@ -22,6 +23,7 @@ body{
     justify-content: center;
     height: 50px;
     background-color: seagreen;
+    color: white; 
 
         .datepicker{
         background-color: whitesmoke;
